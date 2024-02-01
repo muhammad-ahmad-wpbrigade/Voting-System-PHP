@@ -74,7 +74,7 @@
 }
 
 .visit-1 {
-    border: 1px solid gray;
+    border: 1px solid green;
     background-color: gray;
     width: 170px;
     min-height: 220px;
@@ -99,7 +99,7 @@
 }
 
 .visit-2 {
-    border: 1px solid gray;
+    border: 1px solid red;
     background-color: gray;
     width: 170px;
     min-height: 220px;
@@ -129,7 +129,7 @@
 }
 
 .visit-3 {
-    border: 1px solid gray;
+    border: 1px solid red;
     background-color: gray;
     width: 170px;
     min-height: 250px;
@@ -155,7 +155,7 @@
 }
 
 .visit-4 {
-    border: 1px solid gray;
+    border: 1px solid red;
     background-color: gray;
     width: 170px;
     min-height: 250px;
@@ -228,6 +228,21 @@
     background-color: grey;
 }
 
+#voteCount {
+    font-size: 24px;
+    text-align: center;
+}
+
+.button-option {
+    text-align: center;
+    margin-top: -47px;
+}
+
+.count {
+    display: flex;
+    margin-left: 400px;
+}
+
 </style>
 
 <body>
@@ -237,51 +252,36 @@
     <div class="visitor">
         <div class="visitor-login">
             <div class="head">
-                <!-- <a href="voter-login.php">Voter</a> -->
                 <h2>Voter</h2>
             </div>
-            <!-- <div class="visitor-part">
-        <input type="number" placeholder="Enter mobile">
-        <br>
-        <br> 
-        <input type="text" placeholder="Winning Candidate">
-        <br>
-        <br>
-        <input type="text" placeholder="All Candidate Votes">
-        <br>
-        <br>      
-    </div>   -->
-            <!-- <div class="visitor-login-btn">
-        <a href="#">Submit</a>
-    </div>    -->
-            <div class="visitor-1">
-                <div class="visit-1">
-                    <div class="pic-1">
-                        <img src="assets/Images/khan.png" alt="Khan Image">
-                    </div>
-                    <div class="content">
-                        <img src="assets/Images/bat.png" alt="bat icon">
-                        <p>A voter is a user who has the right to cast a vote</p>
-                    </div>
-                    <div class="btn-1">
-                <a href="#">Vote</a>
+    <div class="visitor-1">
+    <div class="visit-1">
+    <div class="pic-1">
+    <img src="assets/Images/khan.png" alt="Khan Image">
+    </div>
+    <div class="content">
+    <img src="assets/Images/bat.png" alt="bat icon">
+    <p>A voter is a user who has the right to cast a vote</p>
+    </div>
+    <div class="button-option-1">
+    <button onclick="vote('CandidateA')" style="margin-top: 5px; padding: 1px 7px; id='button'">Vote for Candidate A</button>
+    </div>
+    <div id="voteCount-1" style="font-size: 12px">Total Votes Candidate A: 10</div>
+    </div>
+    <div class="visit-2">
+    <div class="pic-2">
+    <img src="assets/Images/siraj-ul-haq.png" alt="Siraj Image">
+    </div>
+    <div class="content">
+    <img src="assets/Images/jammat-e-islami.png" alt="jammat-e-islami icon">
+    <p>A voter is a user who has the right to cast a vote</p>
+    </div>
+    <div class="button-option-2">
+    <button onclick="vote('CandidateB')" style="margin-top: 5px; padding: 1px 7px;">Vote for Candidate B</button>
+    </div>
+    <div id="voteCount-2" style="font-size: 12px">Total Votes Candidate B: 7</div>
+    </div>
             </div>
-                </div>
-
-                <div class="visit-2">
-                    <div class="pic-2">
-                        <img src="assets/Images/siraj-ul-haq.png" alt="Siraj Image">
-                    </div>
-                    <div class="content">
-                        <img src="assets/Images/jammat-e-islami.png" alt="jammat-e-islami icon">
-                        <p>A voter is a user who has the right to cast a vote</p>
-                    </div>
-                    <div class="btn-2">
-                <a href="#">Vote</a>
-            </div>
-                </div>
-            </div>
-
             <div class="visitor-2">
                 <div class="visit-3">
                     <div class="pic-3">
@@ -291,11 +291,11 @@
                         <img src="assets/Images/lion.png" alt="lion icon">
                         <p>A voter is a user who has the right to cast a vote</p>
                     </div>
-                    <div class="btn-3">
-                <a href="#">Vote</a>
-            </div>
+                    <div class="button-option-3">
+    <button onclick="vote('CandidateC')" style="margin-top: 5px; padding: 1px 7px;">Vote for Candidate C</button>
+    <div id="voteCount-3" style="font-size: 12px">Total Votes Candidate C: 5</div>
                 </div>
-
+                </div>
                 <div class="visit-4">
                     <div class="pic-4">
                         <img src="assets/Images/bilawal.png" alt="Bilawal Image">
@@ -304,13 +304,42 @@
                         <img src="assets/Images/arrow.png" alt="arrow icon">
                         <p>A voter is a user who has the right to cast a vote</p>
                     </div>
-                    <div class="btn-4">
-                <a href="#">Vote</a>
-            </div>
+    <div class="button-option-4">
+    <button onclick="vote('CandidateD')" style="margin-top: 5px; padding: 1px 7px;">Vote for Candidate D</button>
+    <div id="voteCount-4" style="font-size: 12px">Total Votes Candidate D: 3</div>
                 </div>
             </div>
         </div>
     </div>
     </div>
 </body>
+<script>
+  let votes = {
+    CandidateA: 0,
+    CandidateB: 0,
+    CandidateC: 0,
+    CandidateD: 0
+  };
+  function vote(option) {
+    // Increment the vote count for the selected option
+    votes[option]++;
+    // Update the display with the new vote count
+    updateVoteCount();
+  }
+  function updateVoteCount() {
+    const voteCountElement = document.getElementById('voteCount');
+    voteCountElement.textContent = `Total Votes: ${votes.CandidateA + votes.CandidateB + votes.CandidateC + votes.CandidateD}`;
+  }
+//   button = document.getElementById('button');
+//   count = document.getElementById('count');
+//   let c = 0;
+//   count.innerText = `The button was clicked ${c} times!`;
+//   button.addEventListener('click', () => {
+//     c++; 
+//     count.innerText = `The button was clicked ${c} times!`;
+// })
+</script>
 </html>
+
+
+

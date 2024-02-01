@@ -49,6 +49,7 @@
     text-align: center;
     padding-top: 20px;
     font-family: 'oswald', sans-serif;
+    margin-top: -100px;
 }
 
 .voter-part {
@@ -150,41 +151,44 @@
 </style>
 <body>
 <div class="header-section">
-        <h1>Voting System</h1>
+    <h1>Voting System</h1>
     </div>
     <div class="voter">
-        <div class="voter-register">
-            <div class="head">
-                <h2>Add Candidate</h2>
-            </div>
+    <div class="voter-register">
+    <div class="head">
+    <h2 style="color: #000;">Add Candidate</h2>
+    </div>
+    <form action="add-candidate.html" method="POST" name="myForm" onsubmit="return data()" onsubmit="return  validation()">
     <div class="voter-part">
-    <input type="text" id="name" name="name" pattern="[A-Za-z ]+" title="Please enter a valid name (only letters and spaces allowed)" required>    
-        <input type="text" 
-        pattern="^[0-9]{5}-[0-9]{7}-[0-9]{1}$"
-        title="Type CNIC Like 34603-6655055-9" required>
+        <label for="" style="color: #000; font-weight: 600; margin-left: -33%;">Name:</label>
         <br>
+    <input type="text" placeholder="Enter your Name" id="a1" style="width: 36%; margin-top: 5px;">   
+    <br>   
+    <label for="" style="color: #000; font-weight: 600; margin-left: 15px; margin-left: -34%;">CNIC:</label>
+    <br>
+    <input type="text" placeholder="Enter your valid CNIC Number" id="a2" style="width: 36%; margin-top: 5px;"> 
         <br>
-        <input type="text" placeholder="Symbol">
-        <select name="position" id="position">
-            <option value="position">MPA</option>
-            <option value="position">MNA</option>
+        <label for="" style="color: #000; font-weight: 600; margin-left: -33%;">Symbol:</label>
+        <br>
+        <input type="text" placeholder="Symbol" style="width: 36%; margin-top: 5px;">
+        <br>
+        <label for="" style="color: #000; font-weight: 600; margin-left: -32%;">Position:</label>
+        <br>
+        <select name="position" id="position" style="width: 37%; margin-left: 3px;">
+        <option value="position">MPA</option>
+        <option value="position">MNA</option>
         </select>
         <br>
+        <label for="" style="color: #000; font-weight: 600; margin-left: -32%;">Address:</label>
         <br>
-        <!-- <input type="text" style="width: 26%;" placeholder="Address" required/>    -->
-        <input type="text" 
-        pattern="^regexp=^[A-Za-z-0-99999999"
-        title="Address should only contain lowercase letters. e.g. sialkot" required>
+        <input type="text" style="width: 36%;" placeholder="Enter your Address" id="a3" style="margin-top: 5px;">   
         <br>
+        <br>    
+          <label style="color: #000; font-weight: 600">Image Upload:</label>   <br> <br>
+        <input type="file" name="img_upload">  
         <br>
-        <input type="submit" value="Submit" name="submit">
-        <!-- <div class="submit">
-            <a href="#">Submit</a>
-          </div> -->
-        <form action="/action_page.php">
-            <p style="color: #fff; font-size: 12px; margin-top: 5px; font-family: 'oswald', sans-serif;">Upload Image</p>
-            <input type="file" id="myFile" name="filename" required/>                    
-          </form>
+        </form> 
+        <input type="submit" value="submit">
           <div class="add-btn">
             <a href="#">Add+</a>
           </div> 
@@ -192,6 +196,67 @@
         </div>      
     </div>
 </body>
+<script>
+    var img = document.forms['myForm']['img_upload'];
+    var validExt=["jpeg","png","jpg"];
+    function validation(){
+    if(img.value!=''){
+    var img_ext=image.value.substring(img.value.lastIndexOf('.')+1);
+    var result = validExt.includes(img_ext);
+    if(result==false){
+        alert("Selected file is not an image...");
+        return false;
+    }
+    else {
+        if(parseFloat(img.files[0].size/(1024*1024))>=3){
+            alert("File size must be smaller than 3 MB. Current file size : " + parseFloat(img.files[0].size/(1024*1024)));
+            return false;
+        }
+    }
+    }
+    else {
+        alert("No image is selected...");
+        return false;
+    }
+        return true;
+}
+function data(){
+    var a=document.getElementById("a1").value;
+    var b=document.getElementById("a2").value;
+    var c=document.getElementById("a3").value;
+    if(a==""||b==""||c==""){
+    alert ("All fields are mandatory");
+    return false;
+}
+    else if(a.length<10||a.length>10){
+    alert ("Name should be in letters ! Please Enter Valid Name");
+    return false;
+}
+    else if(isNaN(a)){
+    alert ("Only letters are allowed ! Please Enter Valid Name");
+    return false;
+}
+    else if(b.length<15||b.length>15){
+    alert ("CNIC Number should be of 15 digits ! Please Enter Valid CNIC Number");
+    return false;
+}
+    else if(isNaN(b)){
+    alert ("Only Numbers and dashses are allowed ! Please Enter Valid CNIC Number");
+    return false;
+}
+    else if(c.length<15||c.length>15){
+    alert ("Address should be of 15 letters ! Please Enter Valid Address");
+    return false;
+}
+    else if(isNaN(c)){
+    alert ("Only letters are allowed ! Please Enter Valid Address");
+    return false;
+}
+    else {
+    return true;
+}
+}
+</script>
 </html>
 
 

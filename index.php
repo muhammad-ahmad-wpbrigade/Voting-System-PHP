@@ -26,17 +26,17 @@
     font-family: 'oswald', sans-serif;
 }
 
-
-.buttons {
-    display: flex;
+.home-page {
+    /* display: flex;
     justify-content: center;
-    /* margin-top: 300px; */
-    background-color: lightgrey;
     min-height: 400px;
-    padding-top: 200px;
+    padding-top: 200px; */
+    background-color: lightgrey;
+    min-height: 530px;
+    padding-top: 69px;
 }
 
-.buttons a {
+.home-page a {
     color: #fff;
     background-color: green;
     text-decoration: none;
@@ -46,9 +46,37 @@
     margin-left: 38px;
 }
 
-.buttons a:hover {
+.home-page a:hover {
     background-color: gray;
 }
+
+.vote-image {
+    margin-top: -30px;
+}
+
+.vote-image img {
+    width: 25%;
+    min-height: 300px;
+    /* margin-top: 90px; */
+    margin-left: 530px;
+    margin-top: -30%;
+}
+
+.buttons {
+    /* margin-left: 100px; */
+    display: flex;
+    justify-content: center;
+    /* margin-top: 300px; */
+    background-color: lightgrey;
+    min-height: 400px;
+    padding-top: 100px;
+}
+
+/* img {
+    width: 50%;
+    margin-left: 450px;
+    margin-top: -10%;
+} */
 
 </style>
 
@@ -56,23 +84,21 @@
 <div class="header-section">
         <h1>Voting System</h1>
     </div>
-    <div class="buttons">
-        <div class="admin">
+    <div class="home-page"> 
+       <div class="buttons">
+       <div class="admin">
         <a href="admin-login.php">Admin</a>
         </div>
         <div class="voter">
-        <a href="voter-login.php">Voter</a>
+        <a href="registration.php">Voter</a>
         </div>
         <div class="visitor">
         <a href="visitor.php">Visitor</a>
         </div>
-        <div class="register">
-        <a href="registration.php">Register</a>
-        </div>
-        <!-- <div class="add-candidate-page">
-            <a href="add-candidate.php">Admin Pannel</a>
-        </div> -->
-
+       </div>
+       <div class="vote-image">
+        <img src="assets/Images/vote.png" alt="Vote Image" >
+        </div> 
     </div>
 </body>
 </html>

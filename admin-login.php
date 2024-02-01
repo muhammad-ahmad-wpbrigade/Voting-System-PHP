@@ -106,7 +106,7 @@
 }
 
 .admin-login-btn {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .admin-login-btn a {
@@ -148,24 +148,25 @@
         <div class="admin">
             <div class="admin-login">
                 <div class="head">
-                    <h2>Admin Login</h2>
+                    <h2 style="color: #000;">Admin Login</h2>
                 </div>
         <div class="admin-part">
             <!-- <input type="number" placeholder="Enter mobile">
             <br>
             <br> -->
-            <form action="" method="POST">
-                <input type="text" 
-                pattern="^[0-9]{5}-[0-9]{7}-[0-9]{1}$"
-                title="Type CNIC Like 34603-6655055-9" required>
+            <form action="admin-login.html" method="POST" name="myForm" onsubmit="return data()">
+            <label for="" style="color: #000; font-weight: 600">CNIC:</label>
+                <input type="int" placeholder="Enter your valid CNIC Number" id="a1" style="width: 190px; margin-left: 55px;">
                 <br>
                 <br>
-                <input type="password" placeholder="Enter Password" required/>
-                <br>
+                <label for="" style="color: #000; font-weight: 600">Password:</label>
+                <input type="text" placeholder="Enter your valid Password" id="b2" style="width: 190px; margin-left: 18px;">           
+              <br>
                 <br>                  
                 <input type="submit" value="Submit" name="submit">
                 <div class="admin-login-btn">                
-                    <a href="add-candidate.php">Login Here</a>
+                    <!-- <a href="add-candidate.php">Login Here</a> -->
+                    <a href="crud/index.php">Login Here</a>
                 </div>  
             </form>
             </div> 
@@ -173,10 +174,33 @@
         </div>
 </body>
 <script>
-    const password = document.getElementById("password");
-    const errorMessage = document.getElementById("errorMessage");
-    if(password.value.length < 8){
-        errors.push("Password must be at least 8 characters");
+    // const password = document.getElementById("password");
+    // const errorMessage = document.getElementById("errorMessage");
+    // if(password.value.length < 8){
+    //     errors.push("Password must contain at least 1 uppercase letter and 1 special character and 6 lowercase letters");
+    // }
+    function data(){
+    var a=document.getElementById("a1").value;
+    var b=document.getElementById("b2").value;
+    if(a==""||b==""){
+    alert ("All fields are mandatory");
+    return false;
+}
+    else if(b.length<8||b.length>8){
+    alert ("Password should be of 8 characters in which one uppercase letter and 1 special character and 6 lowercase letters ! Please Enter Valid Password");
+    return false;
+}
+    else if(a.length<15||a.length>15){
+    alert ("Number should be of 15 digits ! Please Enter Valid Number");
+    return false;
+}
+    else if(is_nan(a)){
+    alert ("Only Numbers and dashses are allowed ! Please Enter Valid Number");
+    return false;
+}
+    else {
+    return true;
+}
     }
 </script>
 </html>
