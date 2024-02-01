@@ -17,7 +17,7 @@ include 'header.php';
         <th>Id</th>
         <th>Name</th>
         <th>Address</th>
-        <th>Phone</th>
+        <th>Phone Number</th>
         <th>Action</th>
         </thead>
         <tbody>
