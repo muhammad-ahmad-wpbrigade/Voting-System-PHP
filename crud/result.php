@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
-<div class="report" style="text-align: center; margin-top: 100px; min-height: 350px;">
-<h1 style="text-align;">Result</h1>
+<div class="report" style="text-align: center; margin-top: -25px; min-height: 450px; background-color: #1abc9c;">
+<h1 style="text-align; padding-top: 90px;">Result</h1>
 <label for=""><b>Total Votes:</b></label>
 <br>    <br>
     <input type="text" placeholder="Total Votes" style="outline: none;">

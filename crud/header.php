@@ -18,10 +18,10 @@
                     <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <a href="add.php">Add</a>
+                    <a href="create.php">Create</a>
                 </li>
                 <li>
-                    <a href="update.php">Update</a>
+                    <a href="edit.php">Update</a>
                 </li>
                 <li>
                     <a href="delete.php">Delete</a>
@@ -29,8 +29,8 @@
                 <li>
                     <a href="result.php">Result</a>
                 </li>
-                <!-- <li>
-                <a href="index.php style='color: #fff; text-transform: uppercase; background-color: grey; padding: 5px 10px;'">Back</a>
-                </li> -->              
+               <!-- <li>
+                <a href="votingsystem/admin-login.php style='color: #fff; margin-left: 300px; text-transform: uppercase; background-color: grey; padding: 5px 10px;'">Back</a>
+                </li>              -->
             </ul>
         </div>
