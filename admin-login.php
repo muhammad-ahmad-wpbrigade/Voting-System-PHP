@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voting System</title>
-    <!-- <link rel="stylesheet" href="assets/css/admin-login.css"> -->
 </head>
 <style>
     *{
@@ -51,7 +50,6 @@
 }
 
 .header-section .logout-btn a {
-    /* margin-left: 400px; */
     color: #fff;
     background-color: lightslategray;
     text-decoration: none;
@@ -68,18 +66,12 @@
     min-height: 601px;
     margin-top: -100px;
     background-color: lightgray;
-    /* margin-top: -200px;
-    min-height: 603px; */
 }
 
 .admin-login {
     text-align: center;
-    /* margin-top: 200px;
-    min-height: 580px; */
     margin-left: 450px;
     width: 450px;
-    /* background-color: rgb(0,0,0,0.7); */
-    /* border: 1px solid rgb(0,0,0,0.7); */
     align-items: center;
     margin-top: 100px;
     min-height: 320px;
@@ -116,7 +108,6 @@
     border: none;
     padding: 5px 19px;
     outline: none;
-    /* text-transform: uppercase; */
     font-weight: bold;
 }
 
@@ -151,22 +142,18 @@
                     <h2 style="color: #000;">Admin Login</h2>
                 </div>
         <div class="admin-part">
-            <!-- <input type="number" placeholder="Enter mobile">
-            <br>
-            <br> -->
-            <form action="admin-login.html" method="POST" name="myForm" onsubmit="return data()">
+           
+            <form action="home.php" method="POST" name="myForm" onsubmit="return data()">
             <label for="" style="color: #000; font-weight: 600">CNIC:</label>
-                <input type="int" placeholder="Enter your valid CNIC Number" id="a1" style="width: 190px; margin-left: 55px;">
+                <input type="int" placeholder="Enter your valid CNIC Number" id="a1" style="width: 190px; margin-left: 55px;" name="cnic" value="34603-9742863-1"/>
                 <br>
                 <br>
                 <label for="" style="color: #000; font-weight: 600">Password:</label>
-                <input type="text" placeholder="Enter your valid Password" id="b2" style="width: 190px; margin-left: 18px;">           
+                <input type="password" name="password" placeholder="Enter your valid Password" value="fixed" id="b2" style="width: 190px; margin-left: 18px;" name="pw" />           
               <br>
                 <br>                  
-                <input type="submit" value="Submit" name="submit">
-                <div class="admin-login-btn">                
-                    <!-- <a href="add-candidate.php">Login Here</a> -->
-                    <a href="crud/index.php">Login Here</a>
+                <input type="submit" value="Login" name="submit">             
+                <div class="admin-login-btn">                                
                 </div>  
             </form>
             </div> 
@@ -174,30 +161,25 @@
         </div>
 </body>
 <script>
-    // const password = document.getElementById("password");
-    // const errorMessage = document.getElementById("errorMessage");
-    // if(password.value.length < 8){
-    //     errors.push("Password must contain at least 1 uppercase letter and 1 special character and 6 lowercase letters");
-    // }
     function data(){
-    var a=document.getElementById("a1").value;
+    // var a=document.getElementById("a1").value;
     var b=document.getElementById("b2").value;
     if(a==""||b==""){
     alert ("All fields are mandatory");
     return false;
 }
-    else if(b.length<8||b.length>8){
-    alert ("Password should be of 8 characters in which one uppercase letter and 1 special character and 6 lowercase letters ! Please Enter Valid Password");
+    else if(b.length<5||b.length>5){
+    alert ("Password should be of 5 characters in lowercase letters ! Please Enter Valid Password");
     return false;
 }
-    else if(a.length<15||a.length>15){
-    alert ("Number should be of 15 digits ! Please Enter Valid Number");
-    return false;
-}
-    else if(is_nan(a)){
-    alert ("Only Numbers and dashses are allowed ! Please Enter Valid Number");
-    return false;
-}
+//     else if(a.length<15||a.length>15){
+//     alert ("CNIC Number should be of 15 digits ! Please Enter Valid CNIC Number");
+//     return false;
+// }
+//     else if(is_nan(a)){
+//     alert ("Only Numbers and dashses are allowed ! Please Enter Valid Number");
+//     return false;
+// }
     else {
     return true;
 }

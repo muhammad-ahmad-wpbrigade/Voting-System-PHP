@@ -1,13 +1,38 @@
+<?php
+include 'connect.php';
+
+if (isset($_POST['registerbtn'])) {
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $cnic = $_POST['cnic'];
+    $password = $_POST['password'];
+    $address = $_POST['address'];
+
+    // Using prepared statement to prevent SQL injection
+    $sql = "INSERT INTO `register` (`name`, `phone`, `cnic`, `password`, `address`)
+            VALUES ('$name', '$phone', '$cnic', '$password', '$address')";
+
+    $query = mysqli_query($conn, $sql);
+
+    if ($query) {
+        echo "Data inserted successfully";
+        header ("location: user-login.php");
+        exit();
+    } else {
+        echo "Failed to insert data: " . mysqli_error($conn);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voting System</title>
-    <!-- <link rel="stylesheet" href="assets/css/admin-login.css"> -->
 </head>
 <style>
-    *{
+    * {
     margin: 0;
     padding: 0;
     font-family: 'oswald', sans-serif;
@@ -15,9 +40,8 @@
 
 .header-section {
     background-color: green;
-    display: flex;
-    padding-top: 11px;
-    padding-bottom: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .header-section h1 {
@@ -25,88 +49,116 @@
     font-size: 16px;
     text-align: center;
     font-family: 'oswald', sans-serif;
-    margin-left: 500px;
-    font-weight: bold;
 }
 
-.header-section .back-btn {
-    margin-left: 60px;
+.voter {
+    background-color: lightgrey;
+    margin-top: -200px;
+    min-height: 603px;
 }
 
-.header-section .back-btn a {
-    color: #fff;
-    background-color: lightslategray;
-    text-decoration: none;
-    outline: none;
+#voter {
     border: none;
-    padding: 5px 19px;
-}
-
-.header-section .back-btn a:hover {
-    background-color: lightgray;
-}
-
-.header-section .logout-btn {
-    margin-left: 465px;
-}
-
-.header-section .logout-btn a {
-    /* margin-left: 400px; */
-    color: #fff;
-    background-color: lightslategray;
-    text-decoration: none;
     outline: none;
-    border: none;
-    padding: 5px 19px;
 }
 
-.header-section .logout-btn a:hover {
-    background-color: lightgray;
-}
-
-.admin {
-    min-height: 601px;
-    margin-top: -100px;
-    background-color: lightgray;
-    /* margin-top: -200px;
-    min-height: 603px; */
-}
-
-.admin-login {
+.voter-register {
     text-align: center;
-    /* margin-top: 200px;
-    min-height: 580px; */
-    margin-left: 450px;
-    width: 450px;
-    /* background-color: rgb(0,0,0,0.7); */
-    /* border: 1px solid rgb(0,0,0,0.7); */
-    align-items: center;
-    margin-top: 100px;
+    margin-top: 200px;
     min-height: 320px;
-    padding-top: 70px;
+    padding-top: 125px;
 }
 
-.admin-login h2 {
+.voter-register h2 {
     color: #fff;
     font-size: 16px;
     text-align: center;
     padding-top: 20px;
     font-family: 'oswald', sans-serif;
-    margin-top: 100px;
 }
 
-.admin-part {
+.voter-part {
     margin-top: 20px;
 }
 
-.admin-part input {
+.voter-part label {
+    color: #fff;
+}
+
+.voter-part input {
     padding: 3px 5px;
     outline: none;
     border: none;
 }
 
-.admin-login-btn {
-    margin-top: 20px;
+/* .voter-register-btn {
+    margin-top: 15px;
+}
+
+.voter-register-btn a {
+    color: #fff;
+    background-color: purple;
+    text-decoration: none;
+    border: none;
+    padding: 5px 19px;
+}
+
+.voter-register-btn a:hover {
+    background-color: red;
+} */
+
+.register {
+    display: flex;
+    justify-content: center;
+    padding-top: 18px;
+}
+
+.register a {
+    text-decoration: none;
+    color: #fff;
+    padding-left: 6px;
+    border: none;
+    outline: none;
+}
+
+.register a:hover {
+    color: yellow;
+}
+
+.register p {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    font-family: 'oswald', sans-serif;
+}
+
+.voter-part form {
+    display: flex;
+    margin-left: 560px;
+}
+
+.admin-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.admin-register-btn a {
+    color: #fff;
+    background-color: green;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    padding: 5px 19px;
+    margin-left: 38px;
+}
+
+.admin-register-btn a:hover {
+    background-color: gray;
+}
+
+.admin-register-btn {
+    width: 11%;
 }
 
 .admin-login-btn a {
@@ -114,96 +166,141 @@
     background-color: green;
     text-decoration: none;
     border: none;
-    padding: 5px 19px;
     outline: none;
-    /* text-transform: uppercase; */
-    font-weight: bold;
+    padding: 5px 19px;
+    margin-left: -45px;
+}
+
+.admin-login-btn {
+    width: 9%;
 }
 
 .admin-login-btn a:hover {
     background-color: gray;
 }
 
-.content img {
-    width: 20%;
+/* .register-btn a {
+    color: #fff;
+    background-color: green;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    padding: 5px 12px;
+    margin-left: -30px;
 }
 
-.content p {
-    font-size: 12px;
+.register-btn a:hover {
+    background-color: gray;
+} */
+
+.error-message {
+    color: red;
+    }
+
+.voter h2 {
+    color: #000;
+    margin-top: -100px;
 }
+
 </style>
 <body>
-        <div class="header-section">
-            <div class="back-btn">
-                <a href="index.php">Back</a>
-            </div>   
+<div class="header-section">
+        <h1>Voting System</h1>
+    </div>
+    <div class="voter">
+        <div class="voter-register">
             <div class="head">
-                <h1>Voting System</h1>
-            </div>            
-            <div class="logout-btn">
-                <a href="logout.php?link=logout">Logout</a>
-            </div>       
-        </div> 
-   
-        <div class="admin">
-            <div class="admin-login">
-                <div class="head">
-                    <h2 style="color: #000;">Voter Login</h2>
-                </div>
-        <div class="admin-part">
-            <!-- <input type="number" placeholder="Enter mobile">
-            <br>
-            <br> -->
-            <!-- <form onsubmit="return data()" action="" method="POST"> -->
-            <form action="user-login.html" method="POST" name="myForm" onsubmit="return data()">
-            <label for="" style="color: #000; font-weight: 600">CNIC:</label>
-            <input type="int" placeholder="Enter your valid CNIC Number" id="a1" style="width: 190px; margin-left: 55px;">
-                <br>
-                <br>
-                <label for="" style="color: #000; font-weight: 600">Password:</label>
-                <input type="int" placeholder="Enter your valid Password" id="b1" name="password" style="width: 190px; margin-left: 18px;">             
-                <br>
-                <br>                  
-                <input type="submit" value="Submit" name="submit">
-                <div class="admin-login-btn">                
-                    <a href="voter-login.php">Login Here</a>
-                </div>  
+                <h2>Registration</h2>
+            </div>
+            <!-- <form action="../api/register.php" method="POST" name="myForm" onsubmit="return validation()" onsubmit="data()"> -->
+            <form action="" method="POST" name="myForm" onsubmit="return data()" onsubmit="validation()">
+            <div class="voter-part">    
+            <label for="" style="color: #000; font-weight: 600; margin-left: -33%;">Name:</label>
+            <br>    
+            <input type="text" placeholder="Enter your Name" style="width: 36%; margin-top: 5px;" name="name" name="name" />  
+            <br>    
+            <br>   
+            <label for="" style="color: #000; font-weight: 600; margin-left: -28%; margin-top: 5px;">Phone Number:</label>  
+            <br>  
+        <input type="text" placeholder="Enter your valid Phone Number" id="a1" style="width: 36%; margin-top: 5px;" name="phone" />
+        <br>   
+        <br> 
+        <label for="" style="color: #000; font-weight: 600; margin-left: -34%; margin-top: 5px;">CNIC:</label>
+        <br>
+        <input type="int" placeholder="Enter your valid CNIC Number" id="e1" style="width: 36%; margin-top: 5px;" name="cnic" value="346031665505529" />
+        <br>
+        <br> 
+        <label for="" style="color: #000; font-weight: 600; margin-left: -31%; margin-top: 5px;">Password:</label>
+        <br>
+        <input type="password" placeholder="Enter your valid Password" id="b2" style="width: 36%; margin-top: 5px;" name="password" value="casting" />
+        <br>
+        <br> 
+        <label for="" style="color: #000; font-weight: 600; margin-left: -26%; margin-top: 5px;">Confirm Password:</label>
+        <br>
+        <input type="password" placeholder="Enter your valid Password" id="b3" style="width: 36%; margin-top: 5px;" name="password" value="casting" />
+        <br>
+        <br> 
+        <label for="" style="color: #000; font-weight: 600; margin-left: -32%; margin-top: 5px;">Address:</label>
+        <br> 
+        <input type="text" style="width:36%; margin-top: 5px;" placeholder="Enter your Address" id="d1" name="address" />
+        <br>
+        <br>      
+        <br>
+        <input type="submit" name="registerbtn" value="Register">
+        <br>
+    </div>  
             </form>
-            </div> 
-            </div>      
-        </div>
+        </div>      
+    </div>
 </body>
 <script>
-    // const password = document.getElementById("password");
-    // const errorMessage = document.getElementById("errorMessage");
-    // if(password.value.length < 8){
-    //     errors.push("Password must contain at least 1 uppercase letter and 1 special character and 6 lowercase letters");
-    // }
-    function data(){
+function data(){
     var a=document.getElementById("a1").value;
-    var b=document.getElementById("b1").value;
-    if(a==""||b=="") {
+    var b=document.getElementById("b2").value;
+    var b=document.getElementById("b3").value;
+    var d=document.getElementById("d1").value;
+    var e=document.getElementById("e1").value;
+    if(a==""||b==""||d==""){
     alert ("All fields are mandatory");
     return false;
 }
-    else if(a.length<15||a.length>15){
-    alert ("CNIC Number should be of 15 digits ! Please Enter Valid Number");
+    else if(a.length<11||a.length>11){
+    alert ("Phone Number should be of 11 digits ! Please Enter Valid Phone Number");
     return false;
 }
-    else if(is_nan(a)){
-    alert ("Only Numbers and dashses are allowed ! Please Enter Valid Number");
+    else if(isNaN(a)){
+    alert ("Only Numbers are allowed ! Please Enter Valid Number");
     return false;
 }
-    else if(b.length<8||b.length>8){
-    alert ("Password should be of 8 characters in which one uppercase letter and 1 special character and 6 lowercase letters ! Please Enter Valid Password");
+    else if(e.length<15||e.length>15){
+    alert ("CNIC Number should be of 15 digits ! Please Enter Valid CNIC Number");
+    return false;
+}
+    else if(isNaN(e)){
+    alert ("Only Numbers and symbols are allowed ! Please Enter Valid CNIC Number");
+    return false;
+}
+    else if(b.length<7||b.length>7){
+    alert ("Password should be of 7 characters in which 7 lowercase letters ! Please Enter Valid Password");
+    return false;
+}
+    else if(isNaN(c)){
+    alert ("Only letters are allowed ! Please Enter Valid Name");
+    return false;
+}
+    else if(d.length<15||d.length>15){
+    alert ("Address should be of 15 letters ! Please Enter Valid Address");
+    return false;
+}
+    else if(isNaN(d)){
+    alert ("Only letters are allowed ! Please Enter Valid Address");
     return false;
 }
     else {
     return true;
 }
-    }
+}
 </script>
 </html>
-
 
 

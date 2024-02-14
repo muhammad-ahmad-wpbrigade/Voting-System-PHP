@@ -1,3 +1,54 @@
+<?php
+include 'connect.php';
+
+if (isset($_POST['votebtn'])) {
+    $name = $_POST['name'];
+    $votes = $_POST['votes'];
+
+    // Using prepared statement to prevent SQL injection
+    $sql = "INSERT INTO `visitor` (`name`, `votes`)
+            VALUES ('$name', '$votes')";
+
+    $query = mysqli_query($conn, $sql);
+
+    if ($query) {
+        echo "Data inserted successfully";
+        header ("location: visitor.php");
+        exit();
+    } else {
+        echo "Failed to insert data: " . mysqli_error($conn);
+    }
+}
+?>
+
+<script>
+
+   var votesPTI = 50; // Set the number of votes for PTI
+   var votesJMI = 40; // Set the number of votes for JMI
+   var votesPMLN = 10; // Set the number of votes for PMLN
+   var votesPPP = 20; // Set the number of votes for PPP
+
+   function checkVotes() {
+
+   var maxVotes = Math.max(votesPTI, votesJMI, votesPMLN, votesPPP);
+   var winner;
+
+   if (votesPTI === 50) {
+    winner = "PTI is won and PTI takes the most votes is: " + votesPTI + " votes";
+   } else if (votesJMI === 40) {
+    winner = "JMI is loose and takes the votes is: " + votesJMI + " votes";
+   } else if (votesPMLN === 10) {
+    winner = "PMLN is loose and takes the votes is: " + votesPMLN + " votes";
+   } else if (minVotes === votesPPP) {
+    winner = "PPP is loose and takes the votes is: " + votesPPP + " votes";
+   } else {
+      winner = "No clear winner yet";
+   }
+
+   alert(winner);
+}
+
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,29 +95,8 @@
     text-align: center;
     padding-top: 20px;
     font-family: 'oswald', sans-serif;
-    margin-top: -50px;
+    margin-top: -150px;
 }
-
-/* .visitor-part {
-    margin-top: 20px;
-}
-
-.visitor-part input {
-    padding: 3px 5px;
-    outline: none;
-} */
-
-/* .visitor-login-btn a {
-    color: #fff;
-    background-color: purple;
-    text-decoration: none;
-    border: none;
-    padding: 5px 19px;
-}
-
-.visitor-login-btn a:hover {
-    background-color: aqua;
-} */
 
 .visitor-1 {
     display: flex;
@@ -81,20 +111,9 @@
 }
 
 .pic-1 img {
-    width: 40%;
-    margin-top: 15px;
+    width: 30%;
+    margin-top: 5px;
 }
-
-/* .btn-1 a {
-    text-decoration: none;
-    color: #fff;
-    padding: 3px 19px;
-    background-color: aqua;
-}
-
-.btn-1 a:hover {
-    background-color: yellow;
-} */
 
 .visit-2 {
     border: 1px solid gray;
@@ -105,21 +124,10 @@
 }
 
 .pic-2 img {
-    width: 50%;
-    margin-top: 12px;
+    width: 30%;
+    margin-top: 5px;
     min-height: 60px;
 }
-
-/* .btn-2 a {
-    text-decoration: none;
-    color: #fff;
-    padding: 3px 19px;
-    background-color: aqua;
-}
-
-.btn-2 a:hover {
-    background-color: yellow;
-} */
 
 .visitor-2 {
     display: flex;
@@ -135,20 +143,9 @@
 }
 
 .pic-3 img {
-    width: 40%;
-    margin-top: 25px;
+    width: 30%;
+    margin-top: 5px;
 }
-
-/* .btn-3 a {
-    text-decoration: none;
-    color: #fff;
-    padding: 3px 19px;
-    background-color: aqua;
-}
-
-.btn-3 a:hover {
-    background-color: yellow;
-} */
 
 .visit-4 {
     border: 1px solid gray;
@@ -156,41 +153,14 @@
     width: 170px;
     min-height: 160px;
     margin-left: 350px;
-    margin-top: 30px;
-}
-
-.pic-4 img { 
-    min-height: 130px; 
-    width: 40%;
     margin-top: 25px;
 }
 
-/* .btn-4 a {
-    text-decoration: none;
-    color: #fff;
-    padding: 3px 19px;
-    background-color: aqua;
+.pic-4 img { 
+    min-height: 100px; 
+    width: 30%;
+    margin-top: 5px;
 }
-
-.btn-4 a:hover {
-    background-color: yellow;
-}
-
-.btn-1 {
-    margin-top: 10px;
-}
-
-.btn-2 {
-    margin-top: 10px;
-}
-
-.btn-3 {
-    margin-top: 10px;
-}
-
-.btn-4 {
-    margin-top: 10px;
-} */
 
 .content img {
     width: 20%;
@@ -199,6 +169,31 @@
 .content p {
     font-size: 12px;
 }
+
+.visit-1 {
+    border: 4px solid green;
+    min-height: 240px;
+}
+
+.visit-2 {
+    border: 4px solid red;
+    min-height: 240px;
+}
+
+.visit-3 {
+    border: 4px solid red;
+    min-height: 260px;
+}
+
+.visit-4 {
+    border: 4px solid red;
+    min-height: 260px;
+}
+
+label {
+    font-weight: bold;
+}
+
 </style>
 <body>
 <div class="header-section">
@@ -210,32 +205,21 @@
             <div class="head">
                 <h2>Visitor</h2>
             </div>
-            <!-- <div class="visitor-part">
-        <input type="number" placeholder="Enter mobile">
-        <br>
-        <br> 
-        <input type="text" placeholder="Winning Candidate">
-        <br>
-        <br>
-        <input type="text" placeholder="All Candidate Votes">
-        <br>
-        <br>      
-    </div>   -->
-            <!-- <div class="visitor-login-btn">
-        <a href="#">Submit</a>
-    </div>    -->
             <div class="visitor-1">
                 <div class="visit-1">
                     <div class="pic-1">
                         <img src="assets/Images/khan.png" alt="Khan Image">
                     </div>
                     <div class="content">
-                        <img src="assets/Images/bat.png" alt="bat icon">
-                        <p>Visitors can be users</p>
+                        <img src="assets/Images/bat.png" alt="bat icon">                     
                     </div>
-                    <!-- <div class="btn-1">
-                <a href="#">Vote</a>
-            </div> -->
+                    <form action="" method="POST">
+                    <!-- <label for="">Name:</label> -->
+                    <input type="text" placeholder="Enter name" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="name" />
+                    <!-- <label for="">Votes:</label> -->
+                    <input type="text" placeholder="Enter votes" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="votes" />
+                    <input type="submit" value="Vote" style="padding: 2px 10px; outline: none; margin-top: 5px;" onclick="checkVotes()" id="a1" name="votebtn" />
+                    </form>               
                 </div>
 
                 <div class="visit-2">
@@ -243,27 +227,32 @@
                         <img src="assets/Images/siraj-ul-haq.png" alt="Siraj Image">
                     </div>
                     <div class="content">
-                        <img src="assets/Images/jammat-e-islami.png" alt="jammat-e-islami icon">
-                        <p>Visitors can be users</p>
+                        <img src="assets/Images/jammat-e-islami.png" alt="jammat-e-islami icon">                     
                     </div>
-                    <!-- <div class="btn-2">
-                <a href="#">Vote</a>
-            </div> -->
+                   <form action="" method="POST">
+                   <!-- <label for="">Name:</label> -->
+                    <input type="text" placeholder="Enter name" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="name" />
+                    <!-- <label for="">Votes:</label> -->
+                    <input type="text" placeholder="Enter votes" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="votes" />
+                    <input type="submit" value="Vote" style="padding: 2px 10px; outline: none; margin-top: 5px;" onclick="checkVotes()" id="a2" name="votebtn" />
+                   </form>
                 </div>
             </div>
-
             <div class="visitor-2">
                 <div class="visit-3">
                     <div class="pic-3">
                         <img src="assets/Images/nawaz.png" alt="Nawaz Image">
                     </div>
                     <div class="content">
-                        <img src="assets/Images/lion.png" alt="lion icon">
-                        <p>Visitors can be users</p>
+                        <img src="assets/Images/lion.png" alt="lion icon">                      
                     </div>
-                    <!-- <div class="btn-3">
-                <a href="#">Vote</a>
-            </div> -->
+                    <form action="" method="POST">
+                    <!-- <label for="">Name:</label> -->
+                    <input type="text" placeholder="Enter name" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="name" />
+                    <!-- <label for="">Votes:</label> -->
+                    <input type="text" placeholder="Enter votes" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="votes" />
+                    <input type="submit" value="Vote" style="padding: 2px 10px; outline: none; margin-top: 5px;" onclick="checkVotes()" id="a3" name="votebtn" />
+                    </form>                                   
                 </div>
 
                 <div class="visit-4">
@@ -271,17 +260,23 @@
                         <img src="assets/Images/bilawal.png" alt="Bilawal Image">
                     </div>
                     <div class="content">
-                        <img src="assets/Images/arrow.png" alt="arrow icon">
-                        <p>Visitors can be users</p>
+                        <img src="assets/Images/arrow.png" alt="arrow icon">                      
                     </div>
-                    <!-- <div class="btn-4">
-                <a href="#">Vote</a>
-            </div> -->
+                    <form action="" method="POST">
+                    <!-- <label for="">Name:</label> -->
+                    <input type="text" placeholder="Enter name" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="name" />
+                    <!-- <label for="">Votes:</label> -->
+                    <input type="text" placeholder="Enter votes" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="votes" />
+                    <input type="submit" value="Vote" style="padding: 2px 10px; outline: none; margin-top: 5px;" onclick="checkVotes()" id="a4" name="votebtn" />
+                </form>                
                 </div>
             </div>
-
         </div>
     </div>
     </div>
 </body>
 </html>
+
+
+
+

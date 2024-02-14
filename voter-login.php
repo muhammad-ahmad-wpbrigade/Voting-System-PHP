@@ -1,3 +1,27 @@
+<?php
+include 'connect.php';
+
+if (isset($_POST[''])) {
+    $candidatename = $_POST['candidatename'];
+    $partyname = $_POST['partyname'];
+    $partysymbol = $_POST['partysymbol'];
+
+    // Using prepared statement to prevent SQL injection
+    $sql = "INSERT INTO `candidates` (`candidate name`, `party name`, `party symbol`)
+            VALUES ('$candidate name', '$party name', '$party symbol')";
+
+    $query = mysqli_query($conn, $sql);
+
+    if ($query) {
+        echo "Data inserted successfully";
+        header ("location: voter-login.php");
+        exit();
+    } else {
+        echo "Failed to insert data: " . mysqli_error($conn);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,33 +72,12 @@
     margin-top: -50px;
 }
 
-/* .visitor-part {
-    margin-top: 20px;
-}
-
-.visitor-part input {
-    padding: 3px 5px;
-    outline: none;
-} */
-
-/* .visitor-login-btn a {
-    color: #fff;
-    background-color: purple;
-    text-decoration: none;
-    border: none;
-    padding: 5px 19px;
-}
-
-.visitor-login-btn a:hover {
-    background-color: aqua;
-} */
-
 .visitor-1 {
     display: flex;
 }
 
 .visit-1 {
-    border: 1px solid green;
+    border: 4px solid #000;
     background-color: gray;
     width: 170px;
     min-height: 220px;
@@ -99,7 +102,7 @@
 }
 
 .visit-2 {
-    border: 1px solid red;
+    border: 4px solid #000;
     background-color: gray;
     width: 170px;
     min-height: 220px;
@@ -129,7 +132,7 @@
 }
 
 .visit-3 {
-    border: 1px solid red;
+    border: 4px solid #000;
     background-color: gray;
     width: 170px;
     min-height: 250px;
@@ -155,7 +158,7 @@
 }
 
 .visit-4 {
-    border: 1px solid red;
+    border: 4px solid #000;
     background-color: gray;
     width: 170px;
     min-height: 250px;
@@ -168,17 +171,6 @@
     width: 40%;
     margin-top: 25px;
 }
-
-/* .btn-4 a {
-    text-decoration: none;
-    color: #fff;
-    padding: 3px 19px;
-    background-color: aqua;
-}
-
-.btn-4 a:hover {
-    background-color: yellow;
-} */
 
 .btn-1 {
     margin-top: 10px;
@@ -263,10 +255,7 @@
     <img src="assets/Images/bat.png" alt="bat icon">
     <p>A voter is a user who has the right to cast a vote</p>
     </div>
-    <div class="button-option-1">
-    <button onclick="vote('CandidateA')" style="margin-top: 5px; padding: 1px 7px; id='button'">Vote for Candidate A</button>
-    </div>
-    <div id="voteCount-1" style="font-size: 12px">Total Votes Candidate A: 10</div>
+    <button id="voteButton1" onclick="castVote1()" style="margin-top: 5px; padding: 1px 7px;">Vote for PTI</button>
     </div>
     <div class="visit-2">
     <div class="pic-2">
@@ -276,10 +265,7 @@
     <img src="assets/Images/jammat-e-islami.png" alt="jammat-e-islami icon">
     <p>A voter is a user who has the right to cast a vote</p>
     </div>
-    <div class="button-option-2">
-    <button onclick="vote('CandidateB')" style="margin-top: 5px; padding: 1px 7px;">Vote for Candidate B</button>
-    </div>
-    <div id="voteCount-2" style="font-size: 12px">Total Votes Candidate B: 7</div>
+    <button id="voteButton2" onclick="castVote2()" style="margin-top: 5px; padding: 1px 7px;">Vote for JMI</button>
     </div>
             </div>
             <div class="visitor-2">
@@ -291,10 +277,7 @@
                         <img src="assets/Images/lion.png" alt="lion icon">
                         <p>A voter is a user who has the right to cast a vote</p>
                     </div>
-                    <div class="button-option-3">
-    <button onclick="vote('CandidateC')" style="margin-top: 5px; padding: 1px 7px;">Vote for Candidate C</button>
-    <div id="voteCount-3" style="font-size: 12px">Total Votes Candidate C: 5</div>
-                </div>
+                    <button id="voteButton3" onclick="castVote3()" style="margin-top: 5px; padding: 1px 7px;">Vote for PMLN</button>
                 </div>
                 <div class="visit-4">
                     <div class="pic-4">
@@ -304,42 +287,76 @@
                         <img src="assets/Images/arrow.png" alt="arrow icon">
                         <p>A voter is a user who has the right to cast a vote</p>
                     </div>
-    <div class="button-option-4">
-    <button onclick="vote('CandidateD')" style="margin-top: 5px; padding: 1px 7px;">Vote for Candidate D</button>
-    <div id="voteCount-4" style="font-size: 12px">Total Votes Candidate D: 3</div>
-                </div>
+    <button id="voteButton4" onclick="castVote4()" style="margin-top: 5px; padding: 1px 7px;">Vote for PPP</button>
             </div>
         </div>
     </div>
     </div>
-</body>
-<script>
-  let votes = {
-    CandidateA: 0,
-    CandidateB: 0,
-    CandidateC: 0,
-    CandidateD: 0
-  };
-  function vote(option) {
-    // Increment the vote count for the selected option
-    votes[option]++;
-    // Update the display with the new vote count
-    updateVoteCount();
-  }
-  function updateVoteCount() {
-    const voteCountElement = document.getElementById('voteCount');
-    voteCountElement.textContent = `Total Votes: ${votes.CandidateA + votes.CandidateB + votes.CandidateC + votes.CandidateD}`;
-  }
-//   button = document.getElementById('button');
-//   count = document.getElementById('count');
-//   let c = 0;
-//   count.innerText = `The button was clicked ${c} times!`;
-//   button.addEventListener('click', () => {
-//     c++; 
-//     count.innerText = `The button was clicked ${c} times!`;
-// })
+    <script>
+    let hasVoted = false;
+    // Function to handle casting a vote
+    function castVote1() {
+    // Check if the voter has already cast a vote
+    if (!hasVoted) {
+    hasVoted = true;
+    // Disable the button after the vote is cast
+    document.getElementById("voteButton1").disabled = true;
+    // You can display a confirmation message
+    alert("Your vote has been cast successfully!");
+    } else {
+    // Display a message if the voter has already cast a vote
+    alert("You have already cast your vote.");
+    }
+}
+    // Function to handle casting a vote
+    function castVote2() {
+    // Check if the voter has already cast a vote
+    if (!hasVoted) {
+    hasVoted = true;
+    // Disable the button after the vote is cast
+    document.getElementById("voteButton2").disabled = true;
+    // You can display a confirmation message
+    alert("Your vote has been cast successfully!");
+    } else {
+    // Display a message if the voter has already cast a vote
+    alert("You have already cast your vote.");
+    }
+}
+    // Function to handle casting a vote
+    function castVote3() {
+    // Check if the voter has already cast a vote
+    if (!hasVoted) {
+    hasVoted = true;
+    // Disable the button after the vote is cast
+    document.getElementById("voteButton3").disabled = true;
+    // You can display a confirmation message
+    alert("Your vote has been cast successfully!");
+    } else {
+    // Display a message if the voter has already cast a vote
+    alert("You have already cast your vote.");
+    }
+}
+    // Function to handle casting a vote
+    function castVote4() {
+    // Check if the voter has already cast a vote
+    if (!hasVoted) {
+    hasVoted = true;
+    // Disable the button after the vote is cast
+    document.getElementById("voteButton4").disabled = true;
+    // You can display a confirmation message
+    alert("Your vote has been cast successfully!");
+    } else {
+    // Display a message if the voter has already cast a vote
+    alert("You have already cast your vote.");
+    }
+}
 </script>
+</body>
 </html>
+
+
+
+
 
 
 

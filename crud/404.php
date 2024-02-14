@@ -1,1 +1,0 @@
-<h1>Voting System</h1>
