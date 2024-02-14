@@ -21,34 +21,7 @@ if (isset($_POST['votebtn'])) {
 }
 ?>
 
-<script>
 
-   var votesPTI = 50; // Set the number of votes for PTI
-   var votesJMI = 40; // Set the number of votes for JMI
-   var votesPMLN = 10; // Set the number of votes for PMLN
-   var votesPPP = 20; // Set the number of votes for PPP
-
-   function checkVotes() {
-
-   var maxVotes = Math.max(votesPTI, votesJMI, votesPMLN, votesPPP);
-   var winner;
-
-   if (votesPTI === 50) {
-    winner = "PTI is won and PTI takes the most votes is: " + votesPTI + " votes";
-   } else if (votesJMI === 40) {
-    winner = "JMI is loose and takes the votes is: " + votesJMI + " votes";
-   } else if (votesPMLN === 10) {
-    winner = "PMLN is loose and takes the votes is: " + votesPMLN + " votes";
-   } else if (minVotes === votesPPP) {
-    winner = "PPP is loose and takes the votes is: " + votesPPP + " votes";
-   } else {
-      winner = "No clear winner yet";
-   }
-
-   alert(winner);
-}
-
-</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,7 +85,7 @@ if (isset($_POST['votebtn'])) {
 
 .pic-1 img {
     width: 30%;
-    margin-top: 5px;
+    margin-top: 35px;
 }
 
 .visit-2 {
@@ -125,7 +98,7 @@ if (isset($_POST['votebtn'])) {
 
 .pic-2 img {
     width: 30%;
-    margin-top: 5px;
+    margin-top: 35px;
     min-height: 60px;
 }
 
@@ -144,7 +117,7 @@ if (isset($_POST['votebtn'])) {
 
 .pic-3 img {
     width: 30%;
-    margin-top: 5px;
+    margin-top: 35px;
 }
 
 .visit-4 {
@@ -159,11 +132,12 @@ if (isset($_POST['votebtn'])) {
 .pic-4 img { 
     min-height: 100px; 
     width: 30%;
-    margin-top: 5px;
+    margin-top: 35px;
 }
 
 .content img {
     width: 20%;
+    margin-top: 15px;
 }
 
 .content p {
@@ -213,15 +187,12 @@ label {
                     <div class="content">
                         <img src="assets/Images/bat.png" alt="bat icon">                     
                     </div>
-                    <form action="" method="POST">
-                    <!-- <label for="">Name:</label> -->
-                    <input type="text" placeholder="Enter name" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="name" />
-                    <!-- <label for="">Votes:</label> -->
-                    <input type="text" placeholder="Enter votes" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="votes" />
-                    <input type="submit" value="Vote" style="padding: 2px 10px; outline: none; margin-top: 5px;" onclick="checkVotes()" id="a1" name="votebtn" />
-                    </form>               
+                    <!-- <input type="submit" value="Votes" style="padding: 2px 10px; outline: none; margin-top: 15px;" onclick="checkVotes1()" id="a1" name="votebtn" />
+                    <button onclick="updateResults()">Check Results</button> -->
+                    <br>
+                    <button onclick="castVote('PTI')">Votes</button>
+            <button onclick="updateResults()">Check Results</button>
                 </div>
-
                 <div class="visit-2">
                     <div class="pic-2">
                         <img src="assets/Images/siraj-ul-haq.png" alt="Siraj Image">
@@ -229,14 +200,12 @@ label {
                     <div class="content">
                         <img src="assets/Images/jammat-e-islami.png" alt="jammat-e-islami icon">                     
                     </div>
-                   <form action="" method="POST">
-                   <!-- <label for="">Name:</label> -->
-                    <input type="text" placeholder="Enter name" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="name" />
-                    <!-- <label for="">Votes:</label> -->
-                    <input type="text" placeholder="Enter votes" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="votes" />
-                    <input type="submit" value="Vote" style="padding: 2px 10px; outline: none; margin-top: 5px;" onclick="checkVotes()" id="a2" name="votebtn" />
-                   </form>
-                </div>
+                   <!-- <input type="submit" value="Votes" style="padding: 2px 10px; outline: none; margin-top: 15px;" onclick="checkVotes2()" id="a2" name="votebtn" />
+                   <button onclick="updateResults()">Check Results</button> -->
+                   <br>
+                   <button onclick="castVote('JMI')">Votes</button>
+                <button onclick="updateResults()">Check Results</button>
+</div>
             </div>
             <div class="visitor-2">
                 <div class="visit-3">
@@ -246,15 +215,12 @@ label {
                     <div class="content">
                         <img src="assets/Images/lion.png" alt="lion icon">                      
                     </div>
-                    <form action="" method="POST">
-                    <!-- <label for="">Name:</label> -->
-                    <input type="text" placeholder="Enter name" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="name" />
-                    <!-- <label for="">Votes:</label> -->
-                    <input type="text" placeholder="Enter votes" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="votes" />
-                    <input type="submit" value="Vote" style="padding: 2px 10px; outline: none; margin-top: 5px;" onclick="checkVotes()" id="a3" name="votebtn" />
-                    </form>                                   
+                    <!-- <input type="submit" value="Votes" style="padding: 2px 10px; outline: none; margin-top: 15px;" onclick="checkVotes3()" id="a3" name="votebtn" />                          
+                    <button onclick="updateResults()">Check Results</button> -->
+                    <br>
+                    <button onclick="castVote('PMLN')">Votes</button> 
+                <button onclick="updateResults()">Check Results</button>
                 </div>
-
                 <div class="visit-4">
                     <div class="pic-4">
                         <img src="assets/Images/bilawal.png" alt="Bilawal Image">
@@ -262,18 +228,43 @@ label {
                     <div class="content">
                         <img src="assets/Images/arrow.png" alt="arrow icon">                      
                     </div>
-                    <form action="" method="POST">
-                    <!-- <label for="">Name:</label> -->
-                    <input type="text" placeholder="Enter name" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="name" />
-                    <!-- <label for="">Votes:</label> -->
-                    <input type="text" placeholder="Enter votes" style="padding: 5px 10px; border: none; outline: none; width: 82%; margin-top: 5px;" name="votes" />
-                    <input type="submit" value="Vote" style="padding: 2px 10px; outline: none; margin-top: 5px;" onclick="checkVotes()" id="a4" name="votebtn" />
-                </form>                
-                </div>
+                 <!-- <input type="submit" value="Votes" style="padding: 2px 10px; outline: none; margin-top: 15px;" onclick="checkVotes4()" id="a4" name="votebtn" /> -->         
+                <br>
+                <button onclick="castVote('PPP')">Votes</button>
+                <button onclick="updateResults()">Check Results</button> 
+            </div>
             </div>
         </div>
     </div>
     </div>
+    <script>
+    var votes = {
+      PTI: 5000,
+      JMI: 4000,
+      PMLN: 1000,
+      PPP: 2000
+    };
+
+    function castVote(party) {
+      votes[party]++;
+      updateResults();
+    }
+
+    function updateResults() {
+      var maxVotes = Math.max(...Object.values(votes));
+      var winner = Object.keys(votes).find(party => votes[party] === maxVotes);
+
+      var resultMessage;
+      if (winner) {
+        resultMessage = winner + " is winning with " + maxVotes + " votes" + " and the most votes are PTI";
+      } else {
+        resultMessage = "No clear winner yet.";
+      }
+
+      alert(resultMessage);
+    }
+
+  </script>
 </body>
 </html>
 
